@@ -1,3 +1,894 @@
-Hello World!
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUI Interaktive Zusammenfassung</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral Tones (Slate, Stone, Zinc, Amber) -->
+    <!-- Application Structure Plan: A thematic, hub-and-spoke dashboard structure. Users start with five main lecture blocks. Clicking a block loads its content dynamically, with further sub-navigation for its key concepts. This non-linear approach is ideal for studying, allowing quick access to specific topics without linear scrolling, thus enhancing usability and learning efficiency. -->
+    <!-- Visualization & Content Choices: Dense topics are broken down into interactive elements. For instance, the complex tracking methods are presented in a comparable layout, gesture recognition techniques like GANs are simplified into hover-reveal diagrams, and LLM prompting methods are shown on clickable cards. This was chosen to transform passive reading into active exploration, improving information retention and making complex concepts more digestible. All visuals are created with HTML/CSS, confirming NO SVG/Mermaid. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .topic-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .sub-nav-item {
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .sub-nav-item.active {
+            background-color: #f59e0b; /* amber-500 */
+            color: white;
+        }
+        .concept-box {
+            border-left: 3px solid #f59e0b;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
 
-powered by Donya
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900">Intelligent User Interfaces</h1>
+            <p class="text-slate-600 mt-2 text-lg">Interaktive Zusammenfassung für die Prüfungsvorbereitung</p>
+        </header>
+
+        <!-- Main Topic Navigation -->
+        <nav id="main-nav" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+            <div data-topic="tracking" class="topic-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-b-4 border-amber-400">
+                <h2 class="text-xl font-bold text-slate-900">Tracking Users' Bodies</h2>
+                <p class="text-slate-500 mt-2">Grundlagen, Methoden und Technologien zur Verfolgung von Benutzerkörpern.</p>
+            </div>
+            <div data-topic="gestures" class="topic-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-b-4 border-amber-400">
+                <h2 class="text-xl font-bold text-slate-900">Gestures</h2>
+                <p class="text-slate-500 mt-2">Definition, Erkennung, Klassifizierung und Design von Gesten als Interaktionsform.</p>
+            </div>
+            <div data-topic="vui" class="topic-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-b-4 border-amber-400">
+                <h2 class="text-xl font-bold text-slate-900">Voice User Interfaces</h2>
+                <p class="text-slate-500 mt-2">Bestandteile, Herausforderungen und Designprinzipien von Sprachschnittstellen.</p>
+            </div>
+            <div data-topic="llm" class="topic-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-b-4 border-amber-400">
+                <h2 class="text-xl font-bold text-slate-900">Interacting with LLMs</h2>
+                <p class="text-slate-500 mt-2">Grundlagen, Prompting-Techniken und Integration von Large Language Models.</p>
+            </div>
+            <div data-topic="genai" class="topic-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-b-4 border-amber-400">
+                <h2 class="text-xl font-bold text-slate-900">Generative AI</h2>
+                <p class="text-slate-500 mt-2">Potenziale, technische Grundlagen und Herausforderungen der Generativen KI.</p>
+            </div>
+            <div data-topic="security" class="topic-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-b-4 border-amber-400">
+                <h2 class="text-xl font-bold text-slate-900">Usable Security</h2>
+                <p class="text-slate-500 mt-2">Grundlagen der Authentifizierung und Biometrie, Herausforderungen und Zukunft.</p>
+            </div>
+            <div data-topic="ethics" class="topic-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-b-4 border-amber-400">
+                <h2 class="text-xl font-bold text-slate-900">Ethics and Bias</h2>
+                <p class="text-slate-500 mt-2">Ethische Fragen und Verzerrungen (Bias) in intelligenten Systemen.</p>
+            </div>
+            <div data-topic="recommender" class="topic-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-b-4 border-amber-400">
+                <h2 class="text-xl font-bold text-slate-900">Recommender Systems</h2>
+                <p class="text-slate-500 mt-2">Definition, Ansätze (Collaborative, Content-based) und Herausforderungen.</p>
+            </div>
+            <div data-topic="xai" class="topic-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-b-4 border-amber-400">
+                <h2 class="text-xl font-bold text-slate-900">Explainable AI (XAI)</h2>
+                <p class="text-slate-500 mt-2">Motivation, Konzepte, Methoden und Ziele der Erklärbaren KI.</p>
+            </div>
+            <div data-topic="context" class="topic-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-b-4 border-amber-400">
+                <h2 class="text-xl font-bold text-slate-900">Context and Adaptive Systems</h2>
+                <p class="text-slate-500 mt-2">Kontext in HCI, adaptive Systeme und kontextuelle Integrität.</p>
+            </div>
+            <!-- Neuer Abschnitt für Projekte -->
+            <div data-topic="projects" class="topic-card bg-white p-6 rounded-xl shadow-md cursor-pointer border-b-4 border-amber-600">
+                <h2 class="text-xl font-bold text-slate-900">Meine Projekte</h2>
+                <p class="text-slate-500 mt-2">Praktische Anwendungen der IUI-Konzepte.</p>
+            </div>
+        </nav>
+
+        <!-- Dynamic Content Area -->
+        <main id="content-area">
+            
+            <!-- Tracking Users' Bodies Content -->
+            <section id="tracking-content" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                 <h2 class="text-3xl font-bold mb-6 text-slate-900">Block 0, Vorlesung 1: Tracking Users' Bodies</h2>
+                <p class="mb-8 text-slate-600">Diese Sektion behandelt die fundamentalen Methoden und Technologien zur Verfolgung von Benutzerkörpern in modernen Computersystemen und erweiterten Realitäten, die für intuitive Interaktionen unerlässlich sind. Erkunde die Grundlagen, die verschiedenen Tracking-Typen und fortgeschrittene Anwendungen.</p>
+                
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Grundlagen des Trackings</h3>
+                    <ul class="space-y-3 list-disc list-inside text-slate-700">
+                        <li><strong>Tracking:</strong> Kontinuierliche Bestimmung der Position, Orientierung oder Pose eines Objekts/Benutzers im Raum.</li>
+                        <li><strong>Registrierung:</strong> Präzises Ausrichten virtueller Objekte an der realen Welt, sodass sie räumlich korrekt erscheinen.</li>
+                        <li><strong>Koordinatensysteme:</strong>
+                            <ul class="ml-6 space-y-2 mt-2">
+                                <li><strong>Weltkoordinatensystem (WCS):</strong> Festes Referenzsystem der Umgebung.</li>
+                                <li><strong>Sensorkoordinatensystem (SCS):</strong> Lokales System des Sensors.</li>
+                                <li><strong>Augenkoordinatensystem (ECS):</strong> Spezifisch für die Blickverfolgung.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Was kann getrackt werden?</h3>
+                <ul class="space-y-2 list-disc list-inside text-slate-700 mb-6">
+                    <li>Hände</li>
+                    <li>Füße</li>
+                    <li>Körper</li>
+                    <li>Augen</li>
+                    <li>Gehirn</li>
+                </ul>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Tracking-Methoden im Überblick</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Inertial Tracking</h4>
+                        <p class="text-slate-600 mt-1">Nutzt Bewegungssensoren (Beschleunigungssensoren, Gyroskope, Magnetometer) zur Positions- und Orientierungsbestimmung. Anwendungen: Aktivitätserkennung, Unterstützung bei Übungen, Erkennung von Schreibbewegungen. Accelerometer messen Beschleunigung durch Kapazitätsänderung einer verschobenen Masse. Kapazitive Sensorik misst Kapazitätsänderungen durch Annäherung von Objekten.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Optical Tracking</h4>
+                        <p class="text-slate-600 mt-1">Berührungslose Messung mittels optischer Sensorik (Kameras).
+                            <ul class="ml-4 list-disc list-inside">
+                                <li><strong>Marker-basiert:</strong> Nutzt künstliche, eindeutig erkennbare Muster (z.B. ArUco Marker - quadratische schwarz-weiße Marker mit binärer ID, leicht detektierbar, fehlerkorrigierbar). Anwendung: Kostengünstiges Fuß-Tracking in VR. Bits Extraction: Auslesen der binären Daten (Marker-ID) aus dem Bildmuster.</li>
+                                <li><strong>Marker-los:</strong> Nutzt natürliche Merkmale der Umgebung (Kanten, Texturen, Keypoints). Prinzip: Keypoint-Detektion löst Tracking und Detektion gleichzeitig. Anwendung: AR-Anwendungen.</li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Mechanical Tracking</h4>
+                        <p class="text-slate-600 mt-1">Position und Orientierung eines Objekts wird mechanisch (mit physischen Gelenken und Sensoren) gemessen.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Magnetic Tracking</h4>
+                        <p class="text-slate-600 mt-1">Misst Position und Orientierung im Raum mit Hilfe von Magnetfeldern.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Ultrasonic Tracking</h4>
+                        <p class="text-slate-600 mt-1">Bestimmt Position eines Objekts mit Hilfe von Ultraschallwellen.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Advanced Tracking (Beispiele)</h4>
+                        <ul class="ml-4 list-disc list-inside">
+                            <li><strong>Finger Tracking mit Armband:</strong> Kontinuierliches 3D-Fingertracking und Schätzung der Handpose mittels miniaturisierter Wärmebildkameras (32x24 Pixel) und Regressionsnetzwerken.</li>
+                            <li><strong>Eye-Tracking:</strong> Messung des Blickpunkts durch Bestimmung der Augenrotation und Erfassung der Augenbewegung im Raum/relativ zum Kopf.
+                                <ul class="ml-6 list-disc list-inside">
+                                    <li><strong>Augen Bewegungstypen:</strong> Vergenzbewegungen (Fokussierung), Pursuit-Bewegungen (Verfolgung), Sakkaden (schnelles Scannen).</li>
+                                </ul>
+                            </li>
+                            <li><strong>Brain-Computer Interfaces (BCI):</strong> Direkte Schnittstelle Gehirn-Gerät. SSVEP-basiertes BCI nutzt flimmernde visuelle Reize, die messbare EEG-Aktivität im visuellen Kortex erzeugen, zur Steuerung in VR.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gestures Content -->
+            <section id="gestures-content" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">Block 0, Vorlesung 2: Gestures</h2>
+                <p class="mb-8 text-slate-600">Diese Sektion vertieft das Verständnis von Gesten als Interaktionsform. Behandelt werden die Grundlagen, die Vor- und Nachteile, die Klassifizierung sowie die fundamentalen Designprinzipien und Erkennungstechniken.</p>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="concept-box bg-slate-100 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-slate-800">Grundlagen von Gesten</h3>
+                        <ul class="space-y-3 list-disc list-inside text-slate-700">
+                            <li><strong>Definition:</strong> Eine Geste ist eine Körperbewegung, die Informationen enthält.</li>
+                            <li><strong>Typen:</strong>
+                                <ul class="ml-6 space-y-2 mt-2">
+                                    <li><strong>Posturen (statisch):</strong> Feste Hand- oder Körperhaltungen ohne Bewegung.</li>
+                                    <li><strong>Gesten (dynamisch):</strong> Bewegungen, bei denen der Pfad (Trajektorie) oder Haltungswechsel über die Zeit wichtig ist.</li>
+                                </ul>
+                            </li>
+                             <li><strong>Gestenerkenner:</strong> Ein Software-Tool, das Gesten interpretiert, oft unter Einsatz von KI.</li>
+                        </ul>
+                    </div>
+                     <div class="concept-box bg-slate-100 p-6 rounded-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-slate-800">Charakteristika (Vor- & Nachteile)</h3>
+                        <ul class="space-y-3 list-disc list-inside text-slate-700">
+                           <li><strong>Vorteile:</strong> Schnell auszuführen, natürlich, große Vielfalt, geräteunabhängig, können Befehl und Parameter gleichzeitig spezifizieren.</li>
+                           <li><strong>Nachteile:</strong> Erfordern präzise Erkennung, keine "Affordanz" (Nutzer muss Gesten lernen), Feedback-Gabe ist herausfordernd, können sozial inakzeptabel sein, ungeeignet für detaillierte Eingaben.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3 class="text-2xl font-bold mt-8 mb-4 text-slate-800">Taxonomie von Gesten</h3>
+                <p class="mb-4 text-slate-700">Gesten werden systematisch in Kategorien eingeteilt, um sie besser zu analysieren, vergleichen und gestalten zu können:</p>
+                <ul class="space-y-2 list-disc list-inside text-slate-700 mb-6">
+                    <li><strong>Pointing (Zeigen):</strong> Auswahl von Objekten oder Positionen.</li>
+                    <li><strong>Semaphoric (Semaphorisch):</strong> Vermittelt Informationen durch Haltung oder Bewegung.</li>
+                    <li><strong>Pantomimic (Pantomimisch):</strong> Simuliert die Verwendung unsichtbarer Werkzeuge oder Objekte.</li>
+                    <li><strong>Iconic (Ikonisch):</strong> Vermittelt Informationen über Größe, Form oder Orientierung.</li>
+                    <li><strong>Manipulation:</strong> Direkte Steuerung von Objekten in einer Feedback-Schleife.</li>
+                </ul>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Gestaltung und Erkennung</h3>
+                 <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6">
+                    <h4 class="font-bold text-lg text-amber-600">Gestenerkenner-Komponenten</h4>
+                    <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                        <li><strong>Sensing Technology (Hardware):</strong> Erfasst Daten (Position, Beschleunigung, Orientierung über Zeit; 2D/3D-Gesten).</li>
+                        <li><strong>AI-Komponente (Software):</strong> Analysiert räumliche/zeitliche Daten, klassifiziert Gesten (rotations- und größeninvariant).</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 mb-6">
+                    <h4 class="font-bold text-lg text-amber-600">Gestenvokabular</h4>
+                    <p class="text-slate-600 mt-1">Menge aller definierten Gesten, die ein System erkennt und versteht. Jede Geste ist einem Befehl zugeordnet.</p>
+                    <ul class="ml-4 list-disc list-inside text-slate-600 mt-2">
+                        <li><strong>Design-Prinzip:</strong> So wenige Gesten wie möglich, um Fehlinterpretationen zu vermeiden.</li>
+                        <li><strong>Wichtige Aspekte bei der Gestaltung:</strong> Ergonomie (Komfort), Metaphern (intuitive Bilder, z.B. "Gummituch" für Zoom), Natürlichkeit.</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                    <h4 class="font-bold text-lg text-amber-600">Techniken zur Gestenerkennung</h4>
+                    <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                        <li><strong>Sliding Window:</strong> Ein "Fenster" wird über Zeitreihendaten bewegt, um Muster zu analysieren.</li>
+                        <li><strong>Dynamic Time Warping (DTW):</strong> Algorithmus zum Vergleich zweier Zeitreihen; normalisiert die Zeit (zeitinvariant), Vorteile gegenüber euklidischer Distanz.</li>
+                        <li><strong>$-Family Recognizer:</strong> Behandelt Gesten als Punktwolken (z.B. $P-Recognizer). Erfordert Normalisierung (Resampling, Skalierung) und sucht den nächstgelegenen Punkt in der Vorlage (1NN). Typen: $1 (einstrichig), $N (mehrstrichig), $Q (schnelle $P-Version).</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mt-8 mb-4 text-slate-800">Gesten-Erhebung (Gesture Elicitation)</h3>
+                <p class="mb-4 text-slate-700">Ziel: Herausfinden, wie Nutzer intuitiv eine Geste für eine Aufgabe/System ausführen würden.</p>
+                <ul class="space-y-2 list-disc list-inside text-slate-700">
+                    <li><strong>Methode:</strong> Probanden sehen den Effekt einer Geste und werden gebeten, die Geste auszuführen, die sie dafür halten.</li>
+                    <li><strong>Messung:</strong> Aufzeichnung der ausgeführten Gesten. Berechnung des <strong>Agreement Score</strong> (Konsensgrad unter Nutzern).</li>
+                    <li><strong>Bewertung:</strong> Prüfung, ob Gesten gut passen, einfach auszuführen sind und keine Konflikte haben.</li>
+                    <li><strong>Erforderliche Genauigkeit:</strong> Anwendungsabhängig (80-90% für Freizeit, >95% für sicherheitskritische Anwendungen). Zuverlässigkeit und Konsistenz sind entscheidend.</li>
+                </ul>
+            </section>
+
+            <!-- Voice User Interfaces Content -->
+            <section id="vui-content" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">Block 1, Vorlesung 1: Voice User Interfaces (VUI)</h2>
+                <p class="mb-8 text-slate-600">Diese Sektion behandelt die Grundlagen, Bestandteile, Herausforderungen und Designprinzipien von Sprachbenutzeroberflächen, die eine Interaktion per gesprochener Sprache ermöglichen.</p>
+                 <div class="concept-box bg-slate-100 p-6 rounded-lg mb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Bestandteile eines VUI-Systems</h3>
+                    <div class="flex flex-wrap gap-4 text-center">
+                        <div class="flex-1 p-3 bg-slate-200 rounded">ASR<p class="text-xs font-light">(Speech to Text)</p></div>
+                        <div class="p-3 text-2xl font-bold text-amber-600">&rarr;</div>
+                        <div class="flex-1 p-3 bg-slate-200 rounded">NLU<p class="text-xs font-light">(Bedeutung verstehen)</p></div>
+                        <div class="p-3 text-2xl font-bold text-amber-600">&rarr;</div>
+                        <div class="flex-1 p-3 bg-slate-200 rounded">Dialog Management<p class="text-xs font-light">(Dialogfluss steuern)</p></div>
+                        <div class="p-3 text-2xl font-bold text-amber-600">&rarr;</div>
+                        <div class="flex-1 p-3 bg-slate-200 rounded">TTS<p class="text-xs font-light">(Text to Speech)</p></div>
+                    </div>
+                    <ul class="space-y-2 list-disc list-inside text-slate-700 mt-4">
+                        <li><strong>Sonifikation:</strong> Zusätzliche akustische Feedbacks (z.B. Auditory Icons, Earcons), die nicht direkt Sprache sind.</li>
+                    </ul>
+                </div>
+                 <h3 class="text-2xl font-bold mb-4 text-slate-800">Herausforderungen und Designprinzipien</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Herausforderungen</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                           <li><strong>Affordance:</strong> Nutzer wissen oft nicht, was sie sagen können.</li>
+                           <li><strong>Ambiguität:</strong> Sprachverständnis erfordert Kontext- und Weltwissen.</li>
+                           <li><strong>Pragmatik:</strong> Kontexteinbettung ist für Systeme schwierig.</li>
+                           <li><strong>Fehlertoleranz:</strong> Umgang mit Missverständnissen durch Wiederholung, Re-Prompting, „You can say …“.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Design von VUI</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li>Nutzer informieren, was möglich ist und wo sie sich befinden.</li>
+                            <li>Konversation jederzeit abbrechen oder unterbrechen lassen.</li>
+                            <li>Nicht zu viele Optionen auf einmal nennen (max. 3, ggf. gruppieren).</li>
+                            <li>Multimodalität nutzen (z. B. kombiniert mit GUI).</li>
+                            <li>Reaktionszeiten: Zwischen 0–2 Sekunden optimal, bei Verzögerungen informieren.</li>
+                        </ul>
+                        <h4 class="font-bold text-lg text-amber-600 mt-4">"Voice-first"-Designprinzipien</h4>
+                         <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                           <li><strong>Anpassungsfähig:</strong> Nutzer in eigenen Worten sprechen lassen.</li>
+                           <li><strong>Persönlich:</strong> Individualisierte Ansprache.</li>
+                           <li><strong>Immer verfügbar:</strong> Optionen flach strukturiert.</li>
+                           <li><strong>Relational:</strong> Gesprächsähnlicher Dialog statt reiner Befehlsstil.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mt-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Vertrauen & UX</h3>
+                    <ul class="space-y-2 list-disc list-inside text-slate-700">
+                        <li><strong>Bestätigungen:</strong> Explizit/implizit erhöhen Vertrauen.</li>
+                        <li><strong>Persönlichkeit:</strong> Anthropomorphe Stimmen und passende Persönlichkeiten verbessern Nutzererfahrung.</li>
+                        <li><strong>Kognitiver Kontext:</strong> Anpassung an den kognitiven Kontext des Nutzers (z. B. beim Fahren).</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Interacting with LLMs Content -->
+            <section id="llm-content" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">Block 1, Vorlesung 2: Interacting with LLMs</h2>
+                 <p class="mb-8 text-slate-600">Diese Sektion beleuchtet die Grundlagen, Interaktionsmethoden und Leistungsaspekte von Large Language Models (LLMs) sowie deren Integration in Benutzerschnittstellen.</p>
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Grundlagen von LLMs</h3>
+                     <ul class="space-y-3 list-disc list-inside text-slate-700">
+                        <li><strong>Definition:</strong> Generative Pretrained Transformer, trainiert auf riesigen Textmengen (~1 Petabyte Daten).</li>
+                        <li><strong>Trainingsdaten:</strong> Umfassen Bücher, Websites, Code, E-Mails, Videos u.v.m.</li>
+                        <li><strong>Kontextfenster:</strong> Maximale Menge an Informationen (Tokens), die ein Modell gleichzeitig verarbeiten kann (z.B. GPT-4 hat 8–32k Token, GPT-4o bis 128k Tokens).</li>
+                        <li><strong>Architektur:</strong> Typischerweise Decoder-only Transformer mit Embeddings, Masked Multi-Self-Attention, Feed-Forward-Netzwerk und Vorhersage des nächsten Tokens.</li>
+                        <li><strong>System Prompts:</strong> Unsichtbare „Hidden Instructions“ steuern Verhalten & Tonalität des Modells.</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Interaktion mit LLMs (Prompting)</h3>
+                <ul class="space-y-2 list-disc list-inside text-slate-700 mb-6">
+                    <li><strong>Prompting:</strong> Ergebnisqualität hängt stark von der Formulierung des Prompts ab.</li>
+                    <li><strong>Bestandteile eines guten Prompts:</strong> Instruction, Context, Input Data, Output Indicator.</li>
+                    <li>Präzise Anweisungen verbessern die Ergebnisse.</li>
+                </ul>
+                <h4 class="font-bold text-lg text-amber-600 mb-2">Prompting-Ansätze (Prompt Engineering)</h4>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Zero-Shot</h4>
+                        <p class="text-slate-600 mt-1">Einfaches Fragen ohne Beispiele.</p>
+                    </div>
+                     <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Few-Shot</h4>
+                        <p class="text-slate-600 mt-1">Beispiele und Erklärungen im Prompt mitgeben.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Chain-of-Thought (CoT)</h4>
+                        <p class="text-slate-600 mt-1">Anleiten des Modells zur schrittweisen Begründung seiner Antwort.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Tree-of-Thought (ToT)</h4>
+                        <p class="text-slate-600 mt-1">Erweiterung von CoT; nutzt Baumstruktur von Gedankenpfaden zur Selbstreflexion.</p>
+                    </div>
+                </div>
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mt-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Leistungsaspekte & Mensch-KI-Integration</h3>
+                    <ul class="space-y-2 list-disc list-inside text-slate-700">
+                        <li><strong>Ressourcenverbrauch:</strong> LLMs benötigen viele Ressourcen (Kosten, Nachhaltigkeit). Kontextlängen sind begrenzt.</li>
+                        <li><strong>Mensch-KI-Integration:</strong> Kombination kann bei Entscheidungsaufgaben schlechter, bei kreativen Aufgaben besser sein als Mensch oder KI allein.</li>
+                        <li><strong>Entwicklung der Benutzerinteraktion:</strong> Von Kommandozeilen bis zu immersiver 3D-Interaktion. Warnung: "Magische Textbox" ist keine gute UI – gutes Design erfordert Kontext & Einbettung.</li>
+                        <li><strong>Zukunft der LLM-Interfaces:</strong> Fokus auf Kontextbereitstellung, sinnvolle Integration von KI-Antworten und zusätzlichen Eingaben zur Steuerung.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Generative AI Content -->
+            <section id="genai-content" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">Block 1, Vorlesung 3: Generative AI</h2>
+                <p class="mb-8 text-slate-600">Diese Sektion führt in das Konzept der Generativen KI ein, beleuchtet ihre Potenziale, technischen Grundlagen, praktische Anwendungen, Nutzerinteraktion und die damit verbundenen Herausforderungen.</p>
+                
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Einführung & Potenziale</h3>
+                    <ul class="space-y-2 list-disc list-inside text-slate-700">
+                        <li><strong>Definition:</strong> Generative AI erzeugt neue Inhalte (Bilder, Texte, Audio, 3D-Modelle, Videos) aus Daten.</li>
+                        <li><strong>Bekannte Systeme:</strong> DALL-E 2/3, OpenAI Sora, Stable Diffusion, Midjourney, Point-E, DreamFusion.</li>
+                        <li><strong>Potenziale:</strong> Kreativität & Innovation, Schließen von Datenlücken, sozialer Impact (personalisierte Inhalte), Fortschritte Richtung Künstliche Allgemeine Intelligenz.</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Technische Grundlagen</h3>
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Autoencoder</h4>
+                        <p class="text-slate-600 mt-1">Lernen eine komprimierte (latente) Darstellung von Daten zur Generierung.</p>
+                    </div>
+                     <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">GANs (Generative Adversarial Networks)</h4>
+                        <p class="text-slate-600 mt-1">Generator und Diskriminator trainieren im Wettbewerb, um realistische Daten zu erzeugen (z.B. CycleGAN, StyleGAN).</p>
+                    </div>
+                     <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Diffusionsmodelle</h4>
+                        <p class="text-slate-600 mt-1">Lernen, Rauschen schrittweise aus Daten zu entfernen, um neue, realistische Daten zu erzeugen (z.B. Stable Diffusion).</p>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Praktische Werkzeuge & Nutzerinteraktion</h3>
+                <ul class="space-y-2 list-disc list-inside text-slate-700 mb-6">
+                    <li><strong>Tools:</strong> ComfyUI, ControlNet, Nvidia Canvas, Unity Muse.</li>
+                    <li><strong>Anwendungen:</strong> Bilder, Videos, Porträts, immersive Umgebungen.</li>
+                    <li><strong>Entwicklung von Interfaces:</strong> Von Slidern (GANSlider) über Drag-and-Drop-Manipulation (DragGAN) bis zu immersiver Latent Space Navigation.</li>
+                    <li><strong>Fokus bei Interfaces:</strong> Personalisierung, Kontrolle & Feedback.</li>
+                </ul>
+
+                <div class="concept-box bg-slate-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Herausforderungen & Zukunft</h3>
+                    <ul class="space-y-3 list-disc list-inside text-slate-700">
+                        <li><strong>Herausforderungen:</strong> Semantisches Verständnis, Kontrolle & Steuerung, Trainingsdaten (Urheberrecht, Fairness, Bias), Nutzerakzeptanz, Missbrauch (Deepfakes).</li>
+                        <li><strong>Zukunft:</strong> Höhere Qualität und bessere Steuerbarkeit, stärkere Personalisierung, mehr ethische & rechtliche Regulierung, potenzielle gesellschaftliche Folgen (Jobveränderungen).</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Usable Security Content -->
+            <section id="security-content" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">Block 2, Vorlesung 1: Usable Security</h2>
+                <p class="mb-8 text-slate-600">Diese Sektion behandelt die Grundlagen der Authentifizierung, verschiedene Biometrie-Typen, Leistungsmetriken und zukünftige Trends im Kontext von Usable Security.</p>
+                
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Grundlagen der Authentifizierung</h3>
+                    <ul class="space-y-3 list-disc list-inside text-slate-700">
+                        <li><strong>Ziel:</strong> Bestätigung der Identität einer Person.</li>
+                        <li><strong>Methoden:</strong>
+                            <ul class="ml-6 space-y-2 mt-2">
+                                <li><strong>Wissen:</strong> „Etwas, das du weißt“ (Passwort, PIN).</li>
+                                <li><strong>Besitz:</strong> „Etwas, das du hast“ (Token, Karte).</li>
+                                <li><strong>Biometrie:</strong> „Etwas, das du bist“ (körperlich oder verhaltensbasiert).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Biometrie: Typen und Aufbau</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Biometrie-Typen</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Physiologisch:</strong> Fingerabdruck (seit 1892, weit verbreitet, auch implizit möglich), Venenmuster (z.B. mit Thermalkameras), Fußabdruck (per Wärmebild), ECG (Herzschlagmuster).</li>
+                            <li><strong>Verhaltensbasiert:</strong> Bewegungsmuster (VR/AR-Tracking, HMD, Handbewegungen), Gang (variiert stark je nach Umgebung und Zustand), Blickverhalten (Gaze Tracking).</li>
+                            <li><strong>Funktional:</strong> Körperreflexionen, Kopfstruktur (z. B. SkullConduct - Schallleitung durch den Schädel).</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Biometrische Systeme: Aufbau</h4>
+                        <ol class="list-decimal list-inside text-slate-600 mt-2 space-y-1">
+                            <li><strong>Sensor:</strong> Nimmt das Sample auf.</li>
+                            <li><strong>Feature-Extraktor:</strong> Extrahiert Merkmale (z. B. Minutien bei Fingerabdrücken).</li>
+                            <li><strong>Matching-Modul:</strong> Vergleicht das Sample mit gespeicherten Templates.</li>
+                            <li><strong>Datenbank:</strong> Enthält bekannte Templates.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Modi der Authentifizierung & Leistungsmetriken</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Modi</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Verifikation:</strong> Benutzer behauptet eine Identität, System prüft (1:1 Vergleich).</li>
+                            <li><strong>Identifikation:</strong> System sucht passende Identität ohne explizite Angabe (1:N Vergleich).</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Leistungsmetriken</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>True Positive Rate (TPR):</strong> Trefferquote (TP / (TP + FN)).</li>
+                            <li><strong>False Positive Rate (FPR) / FAR:</strong> Falsche Akzeptanz.</li>
+                            <li><strong>False Negative Rate (FNR) / FRR:</strong> Falsche Ablehnung.</li>
+                            <li><strong>Accuracy (ACC):</strong> (TP + TN) / Gesamt.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mt-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Zukünftige Authentifizierung & Herausforderungen</h3>
+                    <ul class="space-y-3 list-disc list-inside text-slate-700">
+                        <li><strong>Zukünftige Authentifizierung (Implizit):</strong> Nutzer müssen nichts aktiv tun, kontinuierliche Überwachung, privat (Datenschutz), ubiquitär (überall einsetzbar).</li>
+                        <li><strong>Herausforderungen:</strong> Biometrie kann sich über Zeit ändern, hohe Varianz zwischen Sessions, Blackbox-Problematik bei KI-Modellen, Datenschutz (Kommunikation impliziter Authentifizierung).</li>
+                        <li><strong>Wichtige Zitate:</strong> "People often represent the weakest link in the security chain." (B. Schneier)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Ethics and Bias Content -->
+            <section id="ethics-content" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">Block 2, Vorlesung 2: Ethics and Bias</h2>
+                <p class="mb-8 text-slate-600">Diese Sektion behandelt ethische Fragen und Verzerrungen (Bias) in intelligenten Systemen, deren Quellen, Folgen und Vermeidungsstrategien.</p>
+                
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Definitionen & Quellen von Bias</h3>
+                    <ul class="space-y-3 list-disc list-inside text-slate-700">
+                        <li><strong>Algorithmic Bias:</strong> Unbegründete und/oder unangemessene Verzerrungen in den Ergebnissen eines algorithmischen Systems (IEEE P7003).</li>
+                        <li><strong>Bias kann stammen aus:</strong>
+                            <ul class="ml-6 space-y-2 mt-2">
+                                <li><strong>Daten:</strong> Z. B. Instagram-Bilder oder Tweets können gesellschaftliche Vorurteile enthalten.</li>
+                                <li><strong>Algorithmen:</strong> Verstärken bestehende Stereotype, wenn Trainingsdaten verzerrt sind.</li>
+                                <li><strong>Interaktion:</strong> Systeme behandeln Nutzergruppen ungleich (z. B. Gesichtserkennung bei People of Color).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Beispiele & Arten von Bias</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Beispiele für Bias</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li>Microsoft Tay (Chatbot lernt rassistische Sprache von Twitter).</li>
+                            <li>Google Vision (Klassifiziert gleiche Bilder unterschiedlich nach Hautfarbe; erkennt "Gun" statt "Monocular" bei dunkler Haut).</li>
+                            <li>Google Translate (Geschlechter-Bias in Übersetzungen).</li>
+                            <li>Amazon Recruiting Tool (Bias gegen Frauen).</li>
+                            <li>Pulse Oximeter (Ungenauigkeit bei Menschen mit dunkler Hautfarbe).</li>
+                            <li>Voice Assistants (Typisch weiblich und unterwürfig konzipiert; können sexistisches Verhalten induzieren).</li>
+                            <li>Co-Writing mit Meinung-behafteten LLMs beeinflusst Nutzermeinung.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Arten von Bias</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Biased Output:</strong> Verzerrte Ergebnisse aufgrund der Trainingsdaten (z.B. GPT-3 generiert mehr Gewalt für Muslime als für andere Religionen).</li>
+                            <li><strong>Biased Interaction:</strong> Verzerrte Nutzererfahrung durch das System (z.B. iPhone X Face ID Probleme bei asiatischen Nutzern).</li>
+                            <li><strong>Inducing Bias:</strong> Systeme beeinflussen das Verhalten und die Wahrnehmung der Nutzer (z.B. durch Interaktion mit voreingenommenen Modellen).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="concept-box bg-slate-100 p-6 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Folgen & Strategien zur Vermeidung</h3>
+                    <ul class="space-y-3 list-disc list-inside text-slate-700">
+                        <li><strong>Folgen:</strong> Unfaire Behandlung, Verstärkung gesellschaftlicher Vorurteile, Veränderung von Wahrnehmung/Verhalten.</li>
+                        <li><strong>Strategien zur Vermeidung:</strong> Vielfalt der Nutzer berücksichtigen, Alternativen anbieten, über potenzielle Konsequenzen nachdenken.</li>
+                        <li><strong>Zusammenfassung:</strong> Bias ist ein vielschichtiges Problem. Ethische Überlegungen sind entscheidend für faire und inklusive Systeme.</li>
+                        <li><strong>Kontextuelle Integrität (Helen Nissenbaum):</strong> Datenschutz als kontextgerechter Informationsfluss. Fragen: Wer ist betroffen? Wer sendet? Wer empfängt? Was wird geteilt? Unter welchen Bedingungen? Datenschutznormen sind dynamisch.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Recommender Systems Content -->
+            <section id="recommender-content" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">Block 3, Vorlesung 1: Recommender Systems</h2>
+                <p class="mb-8 text-slate-600">Diese Sektion behandelt Empfehlungssysteme in intelligenten Benutzeroberflächen, deren Ziele, verschiedene Ansätze und zentrale Herausforderungen.</p>
+                
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Einführung & Ziele</h3>
+                    <ul class="space-y-3 list-disc list-inside text-slate-700">
+                        <li><strong>Definition:</strong> Softwaretools, die Nutzern Vorschläge für Objekte machen, die für sie nützlich sein könnten (z. B. Produkte, Musik, Nachrichten).</li>
+                        <li><strong>Anwendungsbeispiele:</strong> Online-Shops (Amazon), Streaming-Plattformen (Netflix, Spotify), soziale Netzwerke.</li>
+                        <li><strong>Ziele:</strong> Verbesserung der Benutzererfahrung, Unterstützung bei Entscheidungen, Erhöhung der Nutzerbindung und Umsätze.</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Ansätze von Empfehlungssystemen</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Collaborative Filtering</h4>
+                        <p class="text-slate-600 mt-1">"Andere, die dir ähnlich sind, mochten auch…"</p>
+                        <ul class="ml-4 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>User-based:</strong> Nutzerähnlichkeit berechnen und Items empfehlen, die ähnliche Nutzer mochten.</li>
+                            <li><strong>Item-based (Amazon):</strong> Ähnlichkeit zwischen Items basierend auf Nutzerbewertungen berechnen (keine Semantik nötig). Items empfehlen, die den bereits gemochten Items des Nutzers ähnlich sind.</li>
+                            <li><strong>Vorgehen:</strong> Nutzer bewerten Objekte (explizit/implizit), Ähnlichkeit zwischen Nutzern/Objekten berechnen (z.B. Kosinus, Pearson), Vorhersage neuer Bewertungen.</li>
+                            <li><strong>Vorteile:</strong> Keine Objekt-Metadaten nötig.</li>
+                            <li><strong>Herausforderungen:</strong> Cold-start-Problem, Sparse Ratings.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Content-based Filtering</h4>
+                        <p class="text-slate-600 mt-1">Empfehlung auf Basis der Eigenschaften bereits gemochter Objekte.</p>
+                        <ul class="ml-4 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Basis:</strong> Beschreibung der Objekte anhand von Merkmalen (z.B. Genre, Thema, Länge).</li>
+                            <li><strong>Vorgehen:</strong> Nutzerprofil basierend auf Vorlieben bzgl. Merkmale erstellen, Empfehlung von Objekten mit ähnlichen Merkmalen.</li>
+                            <li><strong>Vorteile:</strong> Unabhängig von anderen Nutzern.</li>
+                            <li><strong>Herausforderungen:</strong> Metadaten und Domänenwissen erforderlich.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Weitere Ansätze</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Kontextbasiert:</strong> Empfehlung abhängig vom aktuellen Kontext (Ort, Zeit, Situation).</li>
+                            <li><strong>Demographisch:</strong> Empfehlung basierend auf Altersgruppe, Einkommen, Bildung.</li>
+                            <li><strong>Soziale Beziehungen:</strong> Empfehlung basierend auf dem Verhalten von Freunden und Kontakten.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Herausforderungen</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Cold-start-Problem:</strong> Keine Informationen für neue Nutzer/Objekte oder neue Items. Lösung: Hybridansätze, Initialinteraktionen (Fragebögen), Nutzung von Kontext-/demographischen Daten.</li>
+                            <li><strong>Sparse Ratings Problem:</strong> Wenige Bewertungen pro Nutzer/Objekt erschweren Ähnlichkeitsberechnungen.</li>
+                            <li><strong>Item Ratings erhalten:</strong> Explizit (Fragebögen, Bewertungen) oder Implizit (Nutzung von Items, Teilen, Entfernen von Items).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mt-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Zusammenfassung</h3>
+                    <ul class="space-y-2 list-disc list-inside text-slate-700">
+                        <li>Empfehlungssysteme nutzen Ähnlichkeiten zwischen Nutzern oder Objekten.</li>
+                        <li>Collaborative Filtering und Content-based Filtering sind die Hauptansätze.</li>
+                        <li>Ziel: Intelligente Unterstützung und Verbesserung der Nutzererfahrung.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Explainable AI (XAI) Content -->
+            <section id="xai-content" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">Block 3, Vorlesung 2: Explainable Artificial Intelligence (XAI)</h2>
+                <p class="mb-8 text-slate-600">Diese Sektion behandelt die Motivation, Konzepte, Methoden und Ziele der Erklärbaren Künstlichen Intelligenz (XAI) in intelligenten Benutzeroberflächen.</p>
+                
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Einführung & Motivation</h3>
+                    <ul class="space-y-3 list-disc list-inside text-slate-700">
+                        <li><strong>Motivation:</strong> ML-Algorithmen liefern gute Ergebnisse, sind aber oft schwer verständlich und daher schwer zu vertrauen (Black-Box-Charakter). Dies verlangsamt den Einsatz in kritischen Bereichen (Medizin, autonomes Fahren).</li>
+                        <li><strong>Black-Box-Problem:</strong> Komplexe Modelle (insbesondere Deep Learning wie CNNs, RNNs) sind schwer nachvollziehbar, im Gegensatz zu einfacheren Modellen (Lineare Modelle, Entscheidungsbäume).</li>
+                        <li><strong>Problem:</strong> Menschen können in Konversationen nach Gründen fragen, bei KI ist das oft nicht möglich. Vertrauen basiert auf Verständnis.</li>
+                        <li><strong>Lösung:</strong> KI-Algorithmen durch Erklärungen verständlich machen.</li>
+                        <li><strong>Zunehmender Bedarf:</strong> Steigendes Interesse an Erklärbarer KI.</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Wichtige Konzepte & Ziele von XAI</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Konzepte</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Explainability/Interpretability/Transparency:</strong> Grad, in dem ein Mensch die Entscheidung eines Modells versteht (oft synonym verwendet).</li>
+                            <li><strong>Human-centered AI (HCAI):</strong> KI, die menschliche Selbstwirksamkeit, Kreativität, Verantwortung und soziale Teilhabe unterstützt (Shneiderman, 2020). Menschen sollen im Mittelpunkt der KI stehen.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Ziele von XAI</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li>Vertrauen und Überprüfbarkeit fördern.</li>
+                            <li>Neue Einsichten ermöglichen (z.B. was das Modell wirklich gelernt hat).</li>
+                            <li>Gesetzliche Anforderungen erfüllen (z.B. DSGVO Recht auf Erklärung).</li>
+                            <li>„Clever Hans“-Effekte erkennen und vermeiden (Modell nutzt irrelevante Muster für Entscheidungen).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Herausforderungen & Methoden</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Exemplarische Herausforderungen von KI</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Hohe Komplexität und Energiebedarf:</strong> Erschwert Einsatz in ressourcenbeschränkten Umgebungen.</li>
+                            <li><strong>Mangelnde Transparenz und Erklärbarkeit:</strong> Reduziert Vertrauen und Nachvollziehbarkeit.</li>
+                            <li><strong>Geringe Robustheit gegenüber adversarial attacks:</strong> Angreifbarkeit durch gezielte Störungen (z.B. ein Pixel kann Klassifikation ändern).</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Methoden zur Erklärung</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Surrogate-Modelle:</strong> Einfachere Modelle, die das Verhalten eines komplexen Modells annähern und erklärbar sind.</li>
+                            <li><strong>Lokale Störungen:</strong> Veränderung von Eingaben (z.B. LIME) zur Beobachtung von Effekten auf die Vorhersage.</li>
+                            <li><strong>Propagationsbasierte Ansätze:</strong> Nutzung der Modellstruktur zur Erklärung.</li>
+                            <li><strong>Meta-Erklärungen:</strong> Erklärungen über die Erklärungsmethoden selbst.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Facetten einer Erklärung & Beispiele</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Facetten einer Erklärung</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Empfänger:</strong> Für wen ist die Erklärung gedacht (Experte, Laie)?</li>
+                            <li><strong>Informationsinhalt:</strong> Was wird erklärt (gelernte Repräsentationen, einzelne Vorhersagen, Modellverhalten, repräsentative Beispiele)?</li>
+                            <li><strong>Rolle:</strong> Warum wird erklärt (Vertrauen, Debugging, neue Einsichten)?</li>
+                        </ul>
+                        <h4 class="font-bold text-lg text-amber-600 mt-4">Adversarial Attacks</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li>Täuschen ML-Algorithmen mit manipulierten Eingaben.</li>
+                            <li>Eine winzige Änderung (z.B. ein Pixel) kann ausreichen (One-Pixel Attack).</li>
+                            <li>Erklärbarkeit hilft, solche Angriffe zu verstehen und zu verhindern.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Beispiele für XAI & Probleme</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li>AlphaGo: Unerwartete, schwer erklärbare Züge.</li>
+                            <li>Clever Hans: Modell basiert Entscheidungen auf irrelevanten Mustern (z.B. Hintergrund statt Objekt).</li>
+                            <li><strong>LIME:</strong> Methode für lokale erklärbare Vorhersagen (zeigt, welche Teile der Eingabe für eine einzelne Vorhersage wichtig waren).</li>
+                            <li>Visualisierungen gelernter Repräsentationen und einzelner Vorhersagen (Heat Maps).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mt-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Zusammenfassung</h3>
+                    <ul class="space-y-2 list-disc list-inside text-slate-700">
+                        <li>XAI adressiert die Probleme von Komplexität, Transparenz und Robustheit von KI-Modellen.</li>
+                        <li>Erklärbarkeit fördert Vertrauen, ermöglicht Einsicht und erfüllt regulatorische Anforderungen.</li>
+                    <li>Wichtige Methoden: Surrogates, lokale Erklärungen, Visualisierungen.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Context and Adaptive Systems Content -->
+            <section id="context-content" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">Block 3, Vorlesung 3: Context and Adaptive Systems</h2>
+                <p class="mb-8 text-slate-600">Diese Sektion behandelt die Bedeutung von Kontext und adaptiven Systemen in der Mensch-Computer-Interaktion (HCI), sowie ethische Überlegungen und menschliche Faktoren.</p>
+                
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Einführung & Kontext in HCI</h3>
+                    <ul class="space-y-3 list-disc list-inside text-slate-700">
+                        <li><strong>Motivation:</strong> Systeme sollen sich an Benutzer, deren Umgebung und aktuelle Kontexte anpassen, um nützlicher und weniger störend zu sein.</li>
+                        <li><strong>Kontext in HCI:</strong> Informationen, die für die Interaktion zwischen Mensch und Computer relevant sind.</li>
+                        <li><strong>Mark Weiser (Ubiquitous Computing):</strong> Computer allgegenwärtig, aber „unsichtbar“ – Kontext ist hier entscheidend.</li>
+                    </ul>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Adaptive Systeme & Der Mensch als Kontext</h3>
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Adaptive Systeme</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li>Passen sich an Nutzerpräferenzen und Kontexte an.</li>
+                            <li>Beispiel: Recommender Systems als adaptive Systeme, die auf Verhalten und Kontext reagieren.</li>
+                            <li>Strategien (für Menüs): Nonadaptive, Frequency-based, Resizing (morphing), Smart menus, Split menus with replication, Highlighting, Ephemeral.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Der Mensch als Kontext</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Palm Detection:</strong> Eingaben ablehnen, wenn Handfläche aufliegt.</li>
+                            <li><strong>Finger-/Griff-Erkennung:</strong> Modelle verbessern oder anpassen basierend auf der Art, wie Finger/Hände interagieren.</li>
+                            <li><strong>Orientierung der Finger:</strong> Erkennung von Absicht.</li>
+                            <li><strong>Kontext in der Interaktion:</strong> Kontext kann durch Experimente und Verhaltensbeobachtung erfasst werden. Komplexe Szenarien durch kontextbezogene Verhaltenskodierung analysieren.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-bold mb-4 text-slate-800">Kontextuelle Integrität & Human Factors</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Kontextuelle Integrität (Ethik)</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li><strong>Helen Nissenbaum:</strong> Datenschutz als kontextgerechter Informationsfluss.</li>
+                            <li>Fragen: Wer ist die betroffene Person? Wer sendet die Information? Wer empfängt sie? Was wird geteilt? Unter welchen Bedingungen?</li>
+                            <li>Datenschutznormen sind dynamisch und hängen von gesellschaftlichen Werten ab.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-lg text-amber-600">Human Factors / Ergonomie</h4>
+                        <ul class="space-y-2 list-disc list-inside text-slate-600 mt-2">
+                            <li>Interaktion wird von menschlichen Einschränkungen (Aufmerksamkeit, Stress) und situativen Kontexten (sozial, kulturell, umweltbezogen) geprägt.</li>
+                            <li>Beispiel: Three Mile Island – Kontextuelle Fehler bei Reaktorunfall (Missverständnisse wegen irreführender Indikatoren, Wartungsblockaden, Überlastung durch viele gleichzeitige Alarme).</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="concept-box bg-slate-100 p-6 rounded-lg mt-6">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-800">Zusammenfassung</h3>
+                    <ul class="space-y-2 list-disc list-inside text-slate-700">
+                        <li>Kontexte erfassen und verstehen ist entscheidend für sichere und nützliche Systeme.</li>
+                        <li>Adaptive Systeme reagieren dynamisch auf Nutzer und Umgebung.</li>
+                        <li>Ethik und Datenschutz müssen kontextsensitiv gestaltet sein.</li>
+                        <li>Menschliche Faktoren und situative Einflüsse immer mit berücksichtigen.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Projects Content (New Section) -->
+            <section id="projects-content" class="content-section bg-white p-6 md:p-8 rounded-xl shadow-lg">
+                <h2 class="text-3xl font-bold mb-6 text-slate-900">Meine Projekte</h2>
+                <p class="mb-8 text-slate-600">Dieser Abschnitt präsentiert ausgewählte Projekte, die praktische Anwendungen der in den Vorlesungen behandelten IUI-Konzepte demonstrieren. Klicke auf ein Projekt, um mehr über seine Ziele, Technologien und die angewandten IUI-Prinzipien zu erfahren.</p>
+                
+                <div id="project-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Projektkarten werden hier dynamisch oder statisch hinzugefügt -->
+                </div>
+
+                <div id="project-detail" class="mt-8 pt-8 border-t border-slate-200 hidden">
+                    <h3 class="text-2xl font-bold mb-4 text-slate-900" id="project-detail-title"></h3>
+                    <p class="text-slate-600 mb-4" id="project-detail-description"></p>
+                    <h4 class="font-bold text-lg text-amber-600 mb-2">Angewandte Konzepte</h4>
+                    <ul class="list-disc list-inside text-slate-700 mb-4" id="project-detail-concepts"></ul>
+                    <h4 class="font-bold text-lg text-amber-600 mb-2">Technologien</h4>
+                    <p class="text-slate-700" id="project-detail-tech"></p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navCards = document.querySelectorAll('#main-nav .topic-card');
+            const contentSections = document.querySelectorAll('#content-area .content-section');
+            const projectList = document.getElementById('project-list');
+            const projectDetail = document.getElementById('project-detail');
+            const projectDetailTitle = document.getElementById('project-detail-title');
+            const projectDetailDescription = document.getElementById('project-detail-description');
+            const projectDetailConcepts = document.getElementById('project-detail-concepts');
+            const projectDetailTech = document.getElementById('project-detail-tech');
+
+            // Initial: Hide all content sections
+            contentSections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            navCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const topic = card.dataset.topic;
+                    
+                    // Deactivate all cards
+                    navCards.forEach(c => c.classList.remove('border-amber-600'));
+                    // Activate clicked card
+                    card.classList.add('border-amber-600');
+
+                    contentSections.forEach(section => {
+                        if (section.id === `${topic}-content`) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+
+                    // Hide project detail when switching topics
+                    projectDetail.classList.add('hidden');
+
+                    const contentArea = document.getElementById('content-area');
+                    contentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+
+            // Project Data
+            const projectsData = [
+                {
+                    id: 'llm-writing-assistant',
+                    title: 'LLM Writing Assistant',
+                    short_description: 'Entwicklung eines KI-basierten Schreibassistenten zur Textoptimierung.',
+                    description: 'Dieses Projekt umfasste die Entwicklung einer Fullstack-Webanwendung, die einen lokalen Large Language Model (LLM) über Ollama integriert. Die Anwendung bietet Funktionen wie Grammatikprüfung, Paraphrasierung, Korrekturlesen, Zitierhilfe und Textzusammenfassung. Besondere Herausforderungen waren die Optimierung der LLM-Ressourcennutzung auf begrenzter Hardware und die präzise Steuerung des Modells durch Prompt Engineering.',
+                    concepts: [
+                        'Interacting with LLMs: Prompt Engineering (Zero-Shot, Few-Shot, Chain-of-Thought), System Prompts.',
+                        'Generative AI: Potenziale der Textgenerierung, Herausforderungen bei Kontrolle und Steuerung.',
+                        'Voice User Interfaces: (Indirekt) Konzepte der Mensch-KI-Interaktion und Nutzerführung.',
+                        'Context and Adaptive Systems: (Indirekt) Anpassung der KI-Antworten an den Kontext des Nutzers.'
+                    ],
+                    technologies: 'Python (FastAPI, Streamlit, python-dotenv), Ollama (Llama 3.2:latest, Phi-3:mini), HTML/CSS (Tailwind CSS), JavaScript.'
+                },
+                {
+                    id: 'generio-3d-generator',
+                    title: 'Generio.ai 3D Model Generator',
+                    short_description: 'Aufbau einer App zur 3D-Modellgenerierung aus Skizzen und Text via externer KI-API.',
+                    description: 'Dieses Projekt konzentriert sich auf die Entwicklung eines Frontends mit einem interaktiven Zeichenbereich (Sketch Canvas) und eines Backends, das als Proxy zur externen GENERIO-API dient. Es demonstriert die Generierung von 3D-Modellen aus 2D-Skizzen und Text-Prompts in einem zweistufigen API-Prozess (Bild-Upload als Asset, dann Modellgenerierung aus Asset). Herausforderungen umfassten die API-Authentifizierung und das Debugging der komplexen API-Kommunikation.',
+                    concepts: [
+                        'Generative AI: Potenziale der 3D-Modellgenerierung, Nutzung externer KI-APIs.',
+                        'Tracking Users\' Bodies: (Indirekt) Erfassung von 2D-Zeichnungsdaten als Eingabe für die KI.',
+                        'Gestures: (Indirekt) Zeichnen als Form der Interaktion.',
+                        'Context and Adaptive Systems: (Indirekt) Anpassung der Anwendung an Nutzer-Input (Skizze, Prompt).'
+                    ],
+                    technologies: 'Python (FastAPI, Streamlit, requests, python-dotenv, streamlit-drawable-canvas), HTML/CSS (Tailwind CSS), JavaScript, GENERIO-API.'
+                },
+                {
+                    id: 'magic-wand-duel',
+                    title: 'Magic Wand Duel (Gestenerkennung)',
+                    short_description: 'Ein Spiel zur Erkennung von Zaubergesten mittels physikalischer Sensordaten und Machine Learning.',
+                    description: 'Dieses Projekt implementiert ein "Magic Wand Duel"-Spiel, bei dem Nutzer Zaubergesten mit einem physikalischen Sensorstab (Arduino-basiert) ausführen. Ein Machine Learning Modell erkennt diese Gesten, um den Ausgang eines Duells zu bestimmen. Die Architektur umfasst einen Datenrekorder für Sensordaten, eine Machine Learning Pipeline zur Gestenerkennung und einen Flask-Server, der die Spielregeln und den Duellverlauf verwaltet.',
+                    concepts: [
+                        'Tracking Users\' Bodies: Direkte Anwendung von Inertial Tracking (Accelerometer, Gyroskope) zur Erfassung von Körperbewegungen/Gesten. Nutzung von Sensorkoordinatensystemen zur Datenaufnahme.',
+                        'Gestures: Implementierung eines Gestenerkenners für dynamische Gesten (Zaubergesten). Anwendung von Techniken zur Gestenerkennung wie Feature Extraction (Mittelwert, Standardabweichung, Min/Max der Sensordaten) und Klassifikation. Das Projekt definiert ein Gestenvokabular (z.B. "Stein", "Schere", "Papier").',
+                        'Interacting with LLMs: (Indirekt) Das Projekt ist ein Beispiel für die Entwicklung einer neuartigen Benutzerinteraktion, die über traditionelle GUIs hinausgeht und physikalische Gesten als primäre Eingabemodalität nutzt.',
+                        'Explainable AI (XAI): Die Visualisierung von Feature-Räumen (Nearest Neighbors) kann als eine Form der lokalen Interpretierbarkeit oder der Visualisierung gelernter Repräsentationen betrachtet werden, um die Entscheidungen des ML-Modells nachvollziehbarer zu machen.',
+                        'Context and Adaptive Systems: (Indirekt) Das System passt sich an die physische Geste des Benutzers an, wobei der Mensch als primärer Kontext für die Interaktion dient.'
+                    ],
+                    technologies: 'Python (NumPy, Pandas, scikit-learn - RandomForestClassifier, NearestNeighbors, StandardScaler, joblib), Flask (Webserver), Tkinter (GUI für Recorder), Serial Communication (Arduino), Matplotlib (Visualisierung).'
+                }
+            ];
+
+            // Dynamisches Hinzufügen von Projektkarten
+            projectsData.forEach(project => {
+                const projectCard = document.createElement('div');
+                projectCard.className = 'bg-slate-50 p-4 rounded-lg shadow-sm border border-slate-200 hover:shadow-md transition-shadow cursor-pointer';
+                projectCard.dataset.projectId = project.id;
+                projectCard.innerHTML = `
+                    <h3 class="text-xl font-bold text-slate-900">${project.title}</h3>
+                    <p class="text-slate-600 mt-2">${project.short_description}</p>
+                    <p class="text-sm text-amber-600 mt-2">Relevante Themen: ${project.concepts.map(c => c.split(':')[0]).join(', ')}</p>
+                `;
+                projectList.appendChild(projectCard);
+
+                projectCard.addEventListener('click', () => {
+                    const selectedProject = projectsData.find(p => p.id === projectCard.dataset.projectId);
+                    if (selectedProject) {
+                        projectDetailTitle.textContent = selectedProject.title;
+                        projectDetailDescription.textContent = selectedProject.description;
+                        projectDetailTech.textContent = selectedProject.technologies;
+                        
+                        projectDetailConcepts.innerHTML = ''; // Clear previous concepts
+                        selectedProject.concepts.forEach(concept => {
+                            const li = document.createElement('li');
+                            li.textContent = concept;
+                            projectDetailConcepts.appendChild(li);
+                        });
+
+                        projectDetail.classList.remove('hidden');
+                        projectDetail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
