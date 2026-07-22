@@ -1,0 +1,269 @@
+/* kaluk.net — editorial, light, typography-driven. No external assets. */
+
+:root {
+  --paper: #fbf9f4;
+  --ink: #211e1a;
+  --muted: #6b6459;
+  --accent: #8a3324;
+  --rule: #e4ded2;
+  --serif: "Charter", "Iowan Old Style", "Palatino", "Georgia", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--serif);
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+/* Header */
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 1.25rem;
+  margin-bottom: 3.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.site-name {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.lang-switch {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.lang-switch a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.lang-switch a:hover {
+  color: var(--accent);
+}
+
+.lang-switch span[aria-current] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Intro */
+
+.intro h1 {
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+}
+
+.intro .tagline {
+  font-size: 1.25rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 1.75rem;
+}
+
+/* Sections */
+
+section {
+  margin-top: 4rem;
+}
+
+h2 {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+p + p {
+  margin-top: 1em;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+code {
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+  font-size: 0.85em;
+  background: #f1ece0;
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+/* Projects */
+
+.project {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.project:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.project h3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.project h3 a:hover {
+  color: var(--accent);
+}
+
+.project p {
+  margin-top: 0.5rem;
+  color: var(--ink);
+}
+
+.project .meta {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  margin-top: 0.6rem;
+}
+
+/* Timeline (Werdegang / Experience) */
+
+.timeline {
+  list-style: none;
+}
+
+.timeline li {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 1.25rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.timeline li:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.timeline .when {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding-top: 0.25rem;
+}
+
+.timeline .what strong {
+  display: block;
+  font-weight: 600;
+}
+
+.timeline .what span {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* Contact */
+
+.contact-list {
+  list-style: none;
+}
+
+.contact-list li {
+  padding: 0.3rem 0;
+}
+
+.contact-list .label {
+  display: inline-block;
+  min-width: 7.5rem;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Footer */
+
+.site-footer {
+  margin-top: 5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.site-footer a {
+  color: var(--muted);
+}
+
+/* Legal pages */
+
+.legal h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.legal h2 {
+  margin-top: 2.5rem;
+}
+
+/* Small screens */
+
+@media (max-width: 480px) {
+  .timeline li {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}
+
+@media print {
+  .lang-switch {
+    display: none;
+  }
+}

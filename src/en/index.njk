@@ -1,0 +1,118 @@
+---
+layout: base.njk
+lang: en
+title: Oguzhan Kaluk — Portfolio
+description: "Portfolio of Oguzhan Kaluk: software development with Python/Django and modern web technologies — projects, open source, background, and contact."
+permalink: /en/
+alternateUrl: /
+---
+
+{# Remaining placeholders are marked with [square brackets]. #}
+
+<div class="intro">
+  <h1>Oguzhan Kaluk</h1>
+  <p class="tagline">System administrator &amp; software engineer — Python/Django, web &amp; infrastructure</p>
+  <p>I build software that solves problems pragmatically — from Django backends to
+  browser extensions — and run the infrastructure behind it. When I hit a bug in a
+  library, I stay on it until the fix is merged upstream. After studying software
+  engineering at the University of Duisburg-Essen, I now work as a system
+  administrator at ATAMYA GmbH.</p>
+</div>
+
+<section id="projects">
+  <h2>Projects</h2>
+
+  <article class="project">
+    <h3><a href="https://service-klk.de" rel="noopener">Service KLK</a></h3>
+    <p>Company website for a service business in Hattingen, Germany — construction site
+    coordination, electrical installation, and cleaning. Concept, implementation, and
+    deployment as a fast static site, live at service-klk.de.</p>
+    <p class="meta">SvelteKit · TypeScript · Tailwind CSS</p>
+  </article>
+
+  <article class="project">
+    <h3><a href="https://tutkal.de" rel="noopener">TutKal</a></h3>
+    <p>Website for a professional cleaning company — from implementation to an automated
+    build and deployment workflow onto the company's own server, live at tutkal.de.</p>
+    <p class="meta">Next.js · React · TypeScript</p>
+  </article>
+
+  <article class="project">
+    <h3><a href="https://github.com/okaluk/ude-wt-project">LearnStack</a></h3>
+    <p>A free, web-based study platform with flashcards, a training mode, and a forum —
+    born from the conviction that study tools should be accessible without paywalls.
+    University project for the Web Technologies course at the University of
+    Duisburg-Essen.</p>
+    <p class="meta">TypeScript · Angular · Node.js · Express · MongoDB</p>
+  </article>
+
+  <article class="project">
+    <h3><a href="https://github.com/okaluk/sep-ws21">Restaurant ordering system (SEP)</a></h3>
+    <p>Client-server application for restaurant management and food ordering — from
+    registration and reviews to account balance management. Group project in the
+    software engineering practical course at the University of Duisburg-Essen.</p>
+    <p class="meta">Java · JavaFX · Maven</p>
+  </article>
+</section>
+
+<section id="opensource">
+  <h2>Open Source</h2>
+
+  <article class="project">
+    <h3><a href="https://github.com/django-guardian/django-guardian/pull/838">django-guardian — bug fix (merged upstream)</a></h3>
+    <p>Discovered a crash in <code>get_groups_with_perms</code> when using custom group
+    permission models, made it reproducible with a test case, and contributed the fix —
+    merged into the official repository of Django's object-level permissions library.</p>
+    <p class="meta">Python · Django</p>
+  </article>
+
+  <article class="project">
+    <h3><a href="https://github.com/BonaFideIT/django-otplink">django-otplink</a></h3>
+    <p>A Django module of my own that generates expiring one-time or multi-use links for
+    files in Django models and storage — for instance protected downloads that
+    automatically become invalid after expiry or use.</p>
+    <p class="meta">Python · Django</p>
+  </article>
+
+  <article class="project">
+    <h3><a href="https://github.com/okaluk/StudyDrive-Downloader-Extension">StudyDrive Downloader Extension</a></h3>
+    <p>Chrome extension for downloading StudyDrive documents — adopted as a fork and
+    independently maintained and extended.</p>
+    <p class="meta">JavaScript · Chrome Extension</p>
+  </article>
+</section>
+
+<section id="background">
+  <h2>Background</h2>
+  <ul class="timeline">
+    <li>
+      <span class="when">since 03/2026</span>
+      <span class="what"><strong>System Administrator</strong> <span>ATAMYA GmbH</span></span>
+    </li>
+    <li>
+      <span class="when">12/2023 – 02/2026</span>
+      <span class="what"><strong>Software Engineer</strong> <span>Bona Fide IT GmbH</span></span>
+    </li>
+    <li>
+      <span class="when">09/2022 – 11/2023</span>
+      <span class="what"><strong>Software Engineer</strong> <span>eggheads GmbH</span></span>
+    </li>
+    <li>
+      <span class="when">03/2019 – 08/2022</span>
+      <span class="what"><strong>System Administrator</strong> <span>WeiterbildungsInstitut Ruhr WIR e.V.</span></span>
+    </li>
+    <li>
+      <span class="when">2019 – 2026</span>
+      <span class="what"><strong>B.Sc. Software Engineering</strong> <span>University of Duisburg-Essen</span></span>
+    </li>
+  </ul>
+</section>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <ul class="contact-list">
+    <li><span class="label">Email</span> <a href="mailto:oguzhan.kaluk@gmail.com">oguzhan.kaluk@gmail.com</a></li>
+    <li><span class="label">GitHub</span> <a href="https://github.com/okaluk" rel="me">github.com/okaluk</a></li>
+    <li><span class="label">LinkedIn</span> <a href="https://www.linkedin.com/in/okaluk" rel="me">linkedin.com/in/okaluk</a></li>
+  </ul>
+</section>

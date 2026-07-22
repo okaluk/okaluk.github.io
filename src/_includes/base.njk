@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="description" content="{{ description }}">
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="canonical" href="https://kaluk.net{{ page.url }}">
+  {%- if alternateUrl %}
+  <link rel="alternate" hreflang="{{ 'en' if lang == 'de' else 'de' }}" href="https://kaluk.net{{ alternateUrl }}">
+  <link rel="alternate" hreflang="{{ lang }}" href="https://kaluk.net{{ page.url }}">
+  {%- endif %}
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' font-family='Georgia,serif'%3EK%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <a class="site-name" href="{{ '/' if lang == 'de' else '/en/' }}">Oguzhan Kaluk</a>
+      {%- if alternateUrl %}
+      <nav class="lang-switch" aria-label="{{ 'Sprache' if lang == 'de' else 'Language' }}">
+        {%- if lang == 'de' %}
+        <span aria-current="true">DE</span> · <a href="{{ alternateUrl }}" hreflang="en" lang="en">EN</a>
+        {%- else %}
+        <a href="{{ alternateUrl }}" hreflang="de" lang="de">DE</a> · <span aria-current="true">EN</span>
+        {%- endif %}
+      </nav>
+      {%- endif %}
+    </header>
+
+    <main>
+      {{ content | safe }}
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2026 Oguzhan Kaluk</p>
+    </footer>
+  </div>
+</body>
+</html>
