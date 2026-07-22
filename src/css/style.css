@@ -94,6 +94,30 @@ body {
   margin-bottom: 1.75rem;
 }
 
+.section-nav {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.75rem;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.section-nav a {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+}
+
+.section-nav a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
 /* Sections */
 
 section {
@@ -172,7 +196,25 @@ code {
   margin-top: 0.6rem;
 }
 
-/* Timeline (Werdegang / Experience) */
+/* Timeline (Werdegang / Experience): Beruf und Studium nebeneinander,
+   da das Studium parallel zur Berufstätigkeit lief. */
+
+.timeline-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 2.5rem;
+  align-items: start;
+}
+
+.col-label {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
 
 .timeline {
   list-style: none;
@@ -180,8 +222,8 @@ code {
 
 .timeline li {
   display: grid;
-  grid-template-columns: 7.5rem 1fr;
-  gap: 1.25rem;
+  grid-template-columns: 1fr;
+  gap: 0.15rem;
   padding: 0.9rem 0;
   border-top: 1px solid var(--rule);
 }
@@ -255,10 +297,10 @@ code {
 
 /* Small screens */
 
-@media (max-width: 480px) {
-  .timeline li {
+@media (max-width: 560px) {
+  .timeline-columns {
     grid-template-columns: 1fr;
-    gap: 0.15rem;
+    gap: 2rem;
   }
 }
 
